@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Miniusina {
+    int id;
+    char nome[50];
+    float capacidade;
+    char ra[10];
+    int operacao;
+};
+
+struct Consumidor {
+    int id;
+    char nome[50];
+    char endereco[100];
+    char ra[10];
+};
+
+void consultarMiniusina(struct Miniusina *miniusinas, int quantidade) {
+    int id;
+
+    printf("Digite o ID da miniusina: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < quantidade; i++) {
+        if (miniusinas[i].id == id) {
+            printf("\nMiniusina encontrada:\n");
+            printf("ID: %d\n", miniusinas[i].id);
+            printf("Nome: %s\n", miniusinas[i].nome);
+            printf("Capacidade de Geração: %.2f MW\n", miniusinas[i].capacidade);
+            printf("RA: %s\n", miniusinas[i].ra);
+            printf("Em Operação: %s\n\n", miniusinas[i].operacao ? "Sim" : "Não");
+            return;
+        }
+    }
+
+    printf("\nMiniusina não encontrada.\n");
+}
+
+void consultarConsumidor(struct Consumidor *consumidores, int quantidade) {
+    int id;
+
+    printf("Digite o ID do consumidor: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < quantidade; i++) {
+        if (consumidores[i].id == id) {
+            printf("\nConsumidor encontrado:\n");
+            printf("ID: %d\n", consumidores[i].id);
+            printf("Nome: %s\n", consumidores[i].nome);
+            printf("Endereço: %s\n", consumidores[i].endereco);
+            printf("RA: %s\n\n", consumidores[i].ra);
+            return;
+        }
+    }
+
+    printf("\nConsumidor não encontrado.\n");
+}
+
+void listarMiniusinas(struct Miniusina *miniusinas, int quantidade) {
+    printf("\nMiniusinas cadastradas:\n");
+    for (int i = 0; i < quantidade; i++) {
+        printf("ID: %d\n", miniusinas[i].id);
+        printf("Nome: %s\n", miniusinas[i].nome);
+        printf("Capacidade de Geração: %.2f MW\n", miniusinas[i].capacidade);
+        printf("RA: %s\n", miniusinas[i].ra);
+        printf("Em Operação: %s\n\n", miniusinas[i].operacao ? "Sim" : "Não");
+    }
+}
+
+void listarMiniusinasOrdenadas(struct Miniusina *miniusinas, int quantidade) {
+    struct Miniusina temp;
+    for (int i = 0; i < quantidade - 1; i++) {
+        for (int j = 0; j < quantidade - i - 1; j++) {
+            if (miniusinas[j].capacidade < miniusinas[j + 1].capacidade) {
+                temp = miniusinas[j];
+                miniusinas[j] = miniusinas[j + 1];
+                miniusinas[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("\nMiniusinas em operação (por ordem decrescente de capacidade de g
